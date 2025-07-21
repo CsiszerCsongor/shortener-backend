@@ -85,7 +85,7 @@
 						<image>
 							<name>url-shortener-app:latest</name> <!-- Ez lesz az image neve -->
 							<build>
-								<dockerFile>${project.basedir}\docker\Dockerfile</dockerFile>
+								<dockerFile>${project.basedir}\docker\app\Dockerfile</dockerFile>
 								<contextDir>${project.basedir}</contextDir>
 								<tags>
 									<tag>${project.version}</tag>
