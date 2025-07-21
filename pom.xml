@@ -27,16 +27,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.liquibase</groupId>-->
-<!--			<artifactId>liquibase-core</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>com.mysql</groupId>-->
-<!--			<artifactId>mysql-connector-j</artifactId>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -83,45 +83,25 @@
 				<configuration>
 					<images>
 						<image>
-							<name>url-shortener:latest</name> <!-- Ez lesz az image neve -->
+							<name>url-shortener-app:latest</name> <!-- Ez lesz az image neve -->
 							<build>
 								<dockerFile>${project.basedir}\docker\Dockerfile</dockerFile>
 								<contextDir>${project.basedir}</contextDir>
+								<tags>
+									<tag>${project.version}</tag>
+								</tags>
 							</build>
 						</image>
 					</images>
 				</configuration>
 
 				<executions>
-					<!-- BUILD -->
 					<execution>
 						<id>build-image</id>
 						<phase>package</phase>
 						<goals>
 							<goal>build</goal>
 						</goals>
-					</execution>
-
-					<!-- START -->
-					<execution>
-						<id>run-container</id>
-						<phase>verify</phase> <!-- vagy install után -->
-						<goals>
-							<goal>start</goal>
-						</goals>
-						<configuration>
-							<images>
-								<image>
-									<name>url-shortener:latest</name>
-									<run>
-										<containerNamePattern>url-shortener</containerNamePattern>
-										<ports>
-											<port>9090:8080</port>
-										</ports>
-									</run>
-								</image>
-							</images>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>

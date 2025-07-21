@@ -1,0 +1,35 @@
+version: '2.4'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: url-shortener-mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: urlshortener
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - C:/D/Programming/__Docker_volumes_storage/MySQL/Shortener:/var/lib/mysql
+    networks:
+      - url-shortener-network
+
+  app:
+    image: url-shortener-app:latest
+    container_name: url-shortener-app
+    ports:
+      - "9090:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/urlshortener
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    networks:
+      - url-shortener-network
+
+networks:
+  url-shortener-network:
+    driver: bridge
